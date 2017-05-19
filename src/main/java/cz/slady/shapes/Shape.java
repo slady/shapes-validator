@@ -8,6 +8,7 @@ public class Shape {
     private final List<Dot> dotList = new ArrayList<>();
     private List<Shape> neighbouringShapes;
     private Color color;
+    private String result;
 
     public void add(Dot dot) {
         dot.setParent(this);
@@ -35,6 +36,16 @@ public class Shape {
 
     public Color getColor() {
         return color;
+    }
+
+    public String getResult() {
+        return result;
+    }
+
+    public void setResult(final String newResult) {
+        if (result == null) {
+            result = newResult;
+        }
     }
 
 }

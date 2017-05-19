@@ -16,4 +16,8 @@ public class ValidationModel {
         return shapeList.stream().filter(shape -> shape.getColor() == color).collect(Collectors.toList());
     }
 
+    public List<Shape> getShapes() {
+        return shapeList;
+    }
+
 }
