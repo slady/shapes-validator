@@ -40,31 +40,30 @@ public class Grid {
         final List<Dot> result = new ArrayList<>();
         final int x = dot.getX();
         final int y = dot.getY();
-        final Color c = dot.getColor();
 
         if (x != Integer.MIN_VALUE) {
-            addNeighbour(result, c, x - 1, y);
+            addNeighbour(result, x - 1, y);
         }
 
         if (x != Integer.MAX_VALUE) {
-            addNeighbour(result, c, x + 1, y);
+            addNeighbour(result, x + 1, y);
         }
 
         if (y != Integer.MIN_VALUE) {
-            addNeighbour(result, c, x, y - 1);
+            addNeighbour(result, x, y - 1);
         }
 
         if (y != Integer.MAX_VALUE) {
-            addNeighbour(result, c, x, y + 1);
+            addNeighbour(result, x, y + 1);
         }
 
         return result;
     }
 
-    private void addNeighbour(List<Dot> result, Color c, int x, int y) {
+    private void addNeighbour(List<Dot> result, int x, int y) {
         final Dot dot = get(x, y);
 
-        if (dot == null || dot.getParent() != null) {
+        if (dot == null) {
             return;
         }
 
