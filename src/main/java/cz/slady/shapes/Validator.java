@@ -9,6 +9,7 @@ public class Validator implements Validation {
 
     public Validator() {
         validationList.add(new Validator1Green());
+        validationList.add(new ValidatorOK());
     }
 
     @Override
