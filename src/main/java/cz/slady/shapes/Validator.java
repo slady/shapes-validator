@@ -8,7 +8,7 @@ public class Validator implements Validation {
     private final List<Validation> validationList = new ArrayList<>();
 
     public Validator() {
-
+        validationList.add(new Validator1Green());
     }
 
     @Override

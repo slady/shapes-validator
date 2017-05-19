@@ -111,4 +111,10 @@ public class ShapesTest {
         assertEquals(Color.B, neighbourDotList.get(0).getColor());
     }
 
+    @Test
+    public void validate() throws Exception {
+        final File file = new File("src/test/resources/input1.txt");
+        Shapes.validate(file);
+    }
+
 }
