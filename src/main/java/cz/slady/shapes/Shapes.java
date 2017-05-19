@@ -53,16 +53,14 @@ public class Shapes {
 
         final List<Row> sortedRowCollection = new ArrayList<>(rowMap.values());
         sortedRowCollection.sort(Comparator.comparingInt(Row::getRow));
-        sortedRowCollection.stream().forEach(x -> x.sort());
+        sortedRowCollection.stream().forEach(Row::sort);
 
         return sortedRowCollection;
     }
 
     private static List<Shape> createShapes(final List<Dot> dotList, final Grid grid) {
-        final List<Shape> result = new ArrayList<>();
-        dotList.stream().filter(dot -> dot.getParent() == null).forEach(
-                dot -> result.add(createShapeFloodFill(dot, grid))
-        );
+        final List<Shape> result = dotList.stream().filter(dot -> dot.getParent() == null).map(
+                dot -> createShapeFloodFill(dot, grid)).collect(Collectors.toList());
         findNeighbouringShapes(result, grid);
 
         return result;
