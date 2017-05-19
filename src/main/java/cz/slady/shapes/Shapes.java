@@ -57,11 +57,9 @@ public class Shapes {
 
     private static List<Shape> createShapes(final List<Dot> dotList, final Grid grid) {
         final List<Shape> result = new ArrayList<>();
-        for (final Dot dot : dotList) {
-            if (dot.getParent() == null) {
-                result.add(createShapeFloodFill(dot, grid));
-            }
-        }
+        dotList.stream().filter(dot -> dot.getParent() == null).forEach(
+                dot -> result.add(createShapeFloodFill(dot, grid))
+        );
         findNeighbouringShapes(result, grid);
 
         return result;
@@ -70,8 +68,8 @@ public class Shapes {
     private static Shape createShapeFloodFill(final Dot dot, final Grid grid) {
         final Shape shape = new Shape();
         final Color c = dot.getColor();
-        Collection<Dot> neighbourList = new ArrayList<>();
-        neighbourList.add(dot);
+
+        Collection<Dot> neighbourList = Arrays.asList(dot);
 
         while (!neighbourList.isEmpty()) {
             neighbourList.stream().forEach(d -> shape.add(d));
@@ -84,12 +82,11 @@ public class Shapes {
     }
 
     private static void findNeighbouringShapes(final List<Shape> shapeList, final Grid grid) {
-        shapeList.stream().forEach(shape -> {
+        shapeList.stream().forEach(shape ->
             shape.setNeighbouringShapes(
                 shape.getDotList().stream().flatMap(
                     dot -> grid.getNeighbours(dot).stream().filter(f -> f.getColor() != dot.getColor()))
-                        .map(Dot::getParent).distinct().collect(Collectors.toList()));
-        });
+                        .map(Dot::getParent).distinct().collect(Collectors.toList())));
     }
 
 }
