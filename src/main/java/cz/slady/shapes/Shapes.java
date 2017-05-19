@@ -12,6 +12,9 @@ public class Shapes {
         final List<Dot> dotList = readDotList(inputFile);
         final Grid grid = new Grid(dotList);
         final List<Shape> shapeList = createShapes(dotList, grid);
+        final ValidationModel model = new ValidationModel();
+        final Validator validator = new Validator();
+        validator.validate(model);
     }
 
     public static List<Shape> createShapesFromInputFile(File inputFile) throws FileNotFoundException {
