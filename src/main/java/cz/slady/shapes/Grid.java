@@ -6,20 +6,8 @@ public class Grid {
 
     private final Map<Integer, Map<Integer, Dot>> map = new HashMap<>();
 
-    public Grid(final Collection<Row> rowList) {
-        for (final Row row : rowList) {
-            final Map<Integer, Dot> rowMap = new HashMap<>();
-            map.put(row.getRow(), rowMap);
-
-            final List<Dot> dotList = row.getSortedDotList();
-            for (final Dot dot : dotList) {
-                rowMap.put(dot.getX(), dot);
-            }
-        }
-    }
-
     public Grid(final List<Dot> dotList) {
-        dotList.stream().forEach(dot -> {
+        dotList.forEach(dot -> {
             final int y = dot.getY();
             map.computeIfAbsent(y, HashMap::new);
             map.get(y).put(dot.getX(), dot);

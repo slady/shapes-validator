@@ -53,7 +53,7 @@ public class Shapes {
 
         final List<Row> sortedRowCollection = new ArrayList<>(rowMap.values());
         sortedRowCollection.sort(Comparator.comparingInt(Row::getRow));
-        sortedRowCollection.stream().forEach(Row::sort);
+        sortedRowCollection.forEach(Row::sort);
 
         return sortedRowCollection;
     }
@@ -70,10 +70,10 @@ public class Shapes {
         final Shape shape = new Shape();
         final Color c = dot.getColor();
 
-        Collection<Dot> neighbourList = Arrays.asList(dot);
+        Collection<Dot> neighbourList = Collections.singletonList(dot);
 
         while (!neighbourList.isEmpty()) {
-            neighbourList.stream().forEach(d -> shape.add(d));
+            neighbourList.forEach(shape::add);
             neighbourList = neighbourList.stream().flatMap(
                 d -> grid.getNeighbours(d).stream().filter(
                         f -> f.getParent() == null && f.getColor() == c)).collect(Collectors.toList());
@@ -83,7 +83,7 @@ public class Shapes {
     }
 
     private static void findNeighbouringShapes(final List<Shape> shapeList, final Grid grid) {
-        shapeList.stream().forEach(shape ->
+        shapeList.forEach(shape ->
             shape.setNeighbouringShapes(
                 shape.getDotList().stream().flatMap(
                     dot -> grid.getNeighbours(dot).stream().filter(f -> f.getColor() != dot.getColor()))

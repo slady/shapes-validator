@@ -19,7 +19,7 @@ public class Validator implements Validation {
 
     @Override
     public void validate(final ValidationModel model) {
-        validationList.stream().forEach(x -> x.validate(model));
+        validationList.forEach(x -> x.validate(model));
     }
 
 }
