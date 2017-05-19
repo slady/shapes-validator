@@ -10,6 +10,7 @@ public class Validator implements Validation {
     public Validator() {
         validationList.add(new Validator1Green());
         validationList.add(new Validator2Red());
+        validationList.add(new Validator3Yellow());
         validationList.add(new ValidatorOK());
     }
 
