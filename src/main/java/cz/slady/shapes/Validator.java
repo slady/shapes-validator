@@ -14,6 +14,7 @@ public class Validator implements Validation {
         validationList.add(new Validator4Red());
         validationList.add(new Validator5Yellow());
         validationList.add(new Validator6Blue());
+        validationList.add(new Validator7Average());
         validationList.add(new ValidatorOK());
     }
 
