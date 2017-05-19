@@ -7,6 +7,7 @@ public class Dot {
     private final Color color;
     private final String comment;
     private Shape parent;
+    private String result;
 
     public Dot(int x, int y, char colorChar, String comment) {
         this.x = x;
@@ -39,9 +40,17 @@ public class Dot {
         this.parent = parent;
     }
 
+    public void setResult(final String newResult) {
+        if (result == null) {
+            result = newResult;
+        }
+    }
+
     @Override
     public String toString() {
-        return "" + x + "," + y + "," + color.toString() + "," + comment;
+        return "" + x + "," + y + "," + color.toString() + ","
+                + (result == null ? "-" : result)
+                + "," + comment;
     }
 
 }
