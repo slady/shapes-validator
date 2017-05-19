@@ -83,6 +83,10 @@ public class ShapesTest {
         assertEquals(22, dotG.getY());
         assertEquals(Color.G, dotG.getColor());
 
+        final List<Shape> neighbouringShapesG = shapeG.getNeighbouringShapes();
+        assertNotNull(neighbouringShapesG);
+        assertTrue(neighbouringShapesG.isEmpty());
+
         final Shape shapeR = shapes.get(1);
         final List<Dot> rDotList = shapeR.getDotList();
         assertEquals(2, rDotList.size());
@@ -96,6 +100,15 @@ public class ShapesTest {
         assertEquals(12, dotR2.getX());
         assertEquals(22, dotR2.getY());
         assertEquals(Color.R, dotR2.getColor());
+
+        final List<Shape> neighbouringShapesR = shapeR.getNeighbouringShapes();
+        assertNotNull(neighbouringShapesR);
+        assertEquals(1, neighbouringShapesR.size());
+
+        final Shape neighbour = neighbouringShapesR.get(0);
+        final List<Dot> neighbourDotList = neighbour.getDotList();
+        assertEquals(4, neighbourDotList.size());
+        assertEquals(Color.B, neighbourDotList.get(0).getColor());
     }
 
 }

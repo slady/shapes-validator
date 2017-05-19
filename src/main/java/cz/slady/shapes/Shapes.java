@@ -8,8 +8,10 @@ import java.util.stream.Collectors;
 
 public class Shapes {
 
-    public static void go(final File inputFile) throws IOException {
-        final List<Shape> shapeList = createShapesFromInputFile(inputFile);
+    public static void validate(final File inputFile) throws IOException {
+        final List<Dot> dotList = readDotList(inputFile);
+        final Grid grid = new Grid(dotList);
+        final List<Shape> shapeList = createShapes(dotList, grid);
     }
 
     public static List<Shape> createShapesFromInputFile(File inputFile) throws FileNotFoundException {
@@ -60,6 +62,8 @@ public class Shapes {
                 result.add(createShapeFloodFill(dot, grid));
             }
         }
+        findNeighbouringShapes(result, grid);
+
         return result;
     }
 
@@ -72,10 +76,20 @@ public class Shapes {
         while (!neighbourList.isEmpty()) {
             neighbourList.stream().forEach(d -> shape.add(d));
             neighbourList = neighbourList.stream().flatMap(
-                    d -> grid.getNeighbours(d).stream().filter(f -> f.getColor() == c)).collect(Collectors.toList());
+                d -> grid.getNeighbours(d).stream().filter(
+                        f -> f.getParent() == null && f.getColor() == c)).collect(Collectors.toList());
         }
 
         return shape;
+    }
+
+    private static void findNeighbouringShapes(final List<Shape> shapeList, final Grid grid) {
+        shapeList.stream().forEach(shape -> {
+            shape.setNeighbouringShapes(
+                shape.getDotList().stream().flatMap(
+                    dot -> grid.getNeighbours(dot).stream().filter(f -> f.getColor() != dot.getColor()))
+                        .map(Dot::getParent).distinct().collect(Collectors.toList()));
+        });
     }
 
 }
