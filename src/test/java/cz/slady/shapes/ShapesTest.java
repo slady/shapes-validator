@@ -3,7 +3,10 @@ package cz.slady.shapes;
 import org.junit.Test;
 
 import java.io.File;
-import java.util.Collection;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.util.List;
 
 import static org.junit.Assert.*;
@@ -114,7 +117,14 @@ public class ShapesTest {
     @Test
     public void validate() throws Exception {
         final File file = new File("src/test/resources/input1.txt");
-        Shapes.validate(file);
+        final String result = Shapes.validate(file);
+        final String expected = readFile("src/test/resources/result1.txt");
+        assertEquals(expected, result);
+    }
+
+    private static String readFile(final String path) throws IOException {
+        byte[] encoded = Files.readAllBytes(Paths.get(path));
+        return new String(encoded, StandardCharsets.UTF_8);
     }
 
 }

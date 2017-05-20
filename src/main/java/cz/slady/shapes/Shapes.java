@@ -8,13 +8,14 @@ import java.util.stream.Collectors;
 
 public class Shapes {
 
-    public static void validate(final File inputFile) throws IOException {
+    public static String validate(final File inputFile) throws IOException {
         final List<Dot> dotList = readDotList(inputFile);
         final Grid grid = new Grid(dotList);
         final List<Shape> shapeList = createShapes(dotList, grid);
         final ValidationModel model = new ValidationModel(shapeList);
         final Validator validator = new Validator();
         validator.validate(model);
+        return dotListToString(dotList);
     }
 
     public static List<Shape> createShapesFromInputFile(File inputFile) throws FileNotFoundException {
@@ -88,6 +89,12 @@ public class Shapes {
                 shape.getDotList().stream().flatMap(
                     dot -> grid.getNeighbours(dot).stream().filter(f -> f.getColor() != dot.getColor()))
                         .map(Dot::getParent).distinct().collect(Collectors.toList())));
+    }
+
+    private static String dotListToString(final List<Dot> dotList) {
+        final StringBuilder buf = new StringBuilder();
+        dotList.forEach(dot -> buf.append(dot.toString() + '\n'));
+        return buf.toString();
     }
 
 }
