@@ -77,7 +77,7 @@ public class Shapes {
             neighbourList.forEach(shape::add);
             neighbourList = neighbourList.stream().flatMap(
                 d -> grid.getNeighbours(d).stream().filter(
-                        f -> f.getParent() == null && f.getColor() == c)).collect(Collectors.toList());
+                        f -> f.getParent() == null && f.getColor() == c)).distinct().collect(Collectors.toList());
         }
 
         return shape;
