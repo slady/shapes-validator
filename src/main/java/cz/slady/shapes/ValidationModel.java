@@ -1,8 +1,6 @@
 package cz.slady.shapes;
 
-import java.util.Collection;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.stream.Collectors;
 
 public class ValidationModel {
@@ -16,7 +14,7 @@ public class ValidationModel {
     }
 
     public Collection<Shape> getShapesByColor(final Color color) {
-        return colorShapeListMap.get(color);
+        return Optional.ofNullable(colorShapeListMap.get(color)).orElse(Collections.emptyList());
     }
 
     public List<Shape> getShapes() {
